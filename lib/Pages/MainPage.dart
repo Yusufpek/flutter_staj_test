@@ -12,11 +12,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.orangeAccent[800],
-      body: FutureBuilder(
-        builder: (context, snapshot) {},
-      ),
-    );
+    return Scaffold();
   }
 }
