@@ -10,8 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: MainPage(),
+      builder: (context, child) {
+        return DefaultTextStyle(
+          style: TextStyle(color: Colors.black),
+          child: child!,
+        );
+      },
     );
   }
 }
