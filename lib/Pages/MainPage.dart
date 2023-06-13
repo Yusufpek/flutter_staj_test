@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:staj_test/Constants/CustomPaddings.dart';
-import 'package:staj_test/Service/DogService.dart';
+
+import '../Constants/CustomPaddings.dart';
 import '../Constants/Texts.dart';
-import '../Models/Dog.dart';
+import '../Service/DogService.dart';
+import '../Widgets/DogCardWidget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -18,14 +19,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          Texts.appText,
-          style: TextStyle(color: Colors.amber),
-        ),
-        backgroundColor: Colors.white,
+        title: const Text(Texts.appText),
       ),
       body: FutureBuilder(
         future: DogService().getDogs(),
@@ -45,30 +41,13 @@ class _MainPageState extends State<MainPage> {
               ),
               childrenDelegate: SliverChildBuilderDelegate(
                 childCount: snapshot.data!.length,
-                (context, index) => dogWidget(snapshot.data![index]),
+                (context, index) => DogCardWidget(dog: snapshot.data![index]),
               ),
             );
           } else {
             return const Center(child: CircularProgressIndicator());
           }
         },
-      ),
-    );
-  }
-
-  Widget dogWidget(Dog dog) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: EdgeInsets.all(8),
-        color: Colors.white,
-        child: Column(
-          children: [
-            Image.network(dog.imageLink),
-            const SizedBox(height: 16),
-            Text(dog.name),
-          ],
-        ),
       ),
     );
   }
