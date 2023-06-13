@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 
 class CustomPaddings {
-  EdgeInsets horizontalPadding(double value) =>
+  // Horizontal padding functions
+  static EdgeInsets horizontalPadding(double value) =>
       EdgeInsets.symmetric(horizontal: value);
-  EdgeInsets verticalPadding(double value) =>
+  static EdgeInsets verticalPadding(double value) =>
       EdgeInsets.symmetric(vertical: value);
-  final EdgeInsets smallPadding = const EdgeInsets.all(8);
-  final EdgeInsets mediumPadding = const EdgeInsets.all(16);
-  final EdgeInsets largePadding = const EdgeInsets.all(32);
+
+  // Padding all
+  static const EdgeInsets smallPadding = EdgeInsets.all(8);
+  static const EdgeInsets mediumPadding = EdgeInsets.all(16);
+  static const EdgeInsets largePadding = EdgeInsets.all(32);
 }
