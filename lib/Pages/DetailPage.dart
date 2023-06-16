@@ -24,12 +24,19 @@ class DetailPage extends StatelessWidget {
             color: Theme.of(context).cardColor,
           ),
           child: GestureDetector(
+            onVerticalDragUpdate: (DragUpdateDetails details) {
+              if ((details.primaryDelta ?? 0) > 1) {
+                Navigator.pop(context);
+              }
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
-                  tag: Texts.dogHeroTag + dog.name,
-                  child: ImageNameWidget(dog: dog),
+                Expanded(
+                  child: Hero(
+                    tag: Texts.dogHeroTag + dog.name,
+                    child: ImageNameWidget(dog: dog),
+                  ),
                 ),
                 const Divider(thickness: 3),
                 for (RateModel model in goodWithList(dog))
