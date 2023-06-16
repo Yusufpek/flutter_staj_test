@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../Constants/ConstantsExport.dart';
+import '../Models/Dog.dart';
 import '../Service/DogService.dart';
 import '../Widgets/DogCardWidget.dart';
 
@@ -15,6 +16,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late Future<List<Dog>> dogFuture;
+
+  @override
+  void initState() {
+    dogFuture = DogService().getDogs();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +32,7 @@ class _MainPageState extends State<MainPage> {
         title: const Text(Texts.appText),
       ),
       body: FutureBuilder(
-        future: DogService().getDogs(),
+        future: dogFuture,
         builder: (context, snapshot) => snapshot.hasData
             ? gridViewWidget(snapshot.data!)
             : const Center(child: CircularProgressIndicator()),
@@ -31,7 +40,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget gridViewWidget(data) => GridView.custom(
+  Widget gridViewWidget(List<Dog> data) => GridView.custom(
         padding: CustomPaddings.mediumPadding,
         gridDelegate: SliverWovenGridDelegate.count(
           crossAxisCount: 2,
@@ -44,7 +53,7 @@ class _MainPageState extends State<MainPage> {
         ),
         childrenDelegate: SliverChildBuilderDelegate(
           childCount: data.length,
-          (context, index) => DogCardWidget(dog: data![index]),
+          (context, index) => DogCardWidget(dog: data[index]),
         ),
       );
 }
