@@ -10,8 +10,6 @@ class DogService {
   Future<List<Dog>> getDogs() async {
     var url = Uri.parse(baseUrl);
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     return dogFromJson(response.body);
   }
 }
