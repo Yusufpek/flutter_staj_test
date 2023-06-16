@@ -17,7 +17,11 @@ class ImageNameWidget extends StatelessWidget {
           child: Image.network(dog.imageLink),
         ),
         const SizedBox(height: 16),
-        Text(dog.name, style: Theme.of(context).textTheme.bodyMedium),
+        Text(
+          dog.name,
+          style: Theme.of(context).textTheme.titleMedium,
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }

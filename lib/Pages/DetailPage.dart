@@ -1,12 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../Constants/ConstantsExport.dart';
 import '../Models/Dog.dart';
 import '../Models/RateModel.dart';
 import '../Widgets/ImageNameWidget.dart';
+import '../Widgets/RatinBarWidget.dart';
 
 class DetailPage extends StatelessWidget {
   final Dog dog;
@@ -32,9 +32,11 @@ class DetailPage extends StatelessWidget {
                   child: ImageNameWidget(dog: dog),
                 ),
                 const Divider(thickness: 3),
-                for (RateModel model in goodWithList(dog)) ratingBar(model),
+                for (RateModel model in goodWithList(dog))
+                  RatinBarWidget(model: model),
                 const Divider(thickness: 3),
-                for (RateModel model in coatList(dog)) ratingBar(model),
+                for (RateModel model in coatList(dog))
+                  RatinBarWidget(model: model),
                 const Divider(thickness: 3),
               ],
             ),
@@ -43,25 +45,4 @@ class DetailPage extends StatelessWidget {
       ),
     );
   }
-
-  Widget ratingBar(RateModel rate) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(rate.title),
-          const SizedBox(height: 8),
-          RatingBar(
-            initialRating: rate.rate.toDouble(),
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            ignoreGestures: true,
-            itemCount: 5,
-            ratingWidget: RatingWidget(
-              full: Image.asset(CustomImages.pawFullImage),
-              empty: Image.asset(CustomImages.pawEmptyImage),
-              half: const Icon(Icons.pets),
-            ),
-            onRatingUpdate: (rating) {},
-          ),
-        ],
-      );
 }

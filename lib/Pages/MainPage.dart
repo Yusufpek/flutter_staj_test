@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../Constants/CustomPaddings.dart';
-import '../Constants/Texts.dart';
+import '../Constants/ConstantsExport.dart';
 import '../Service/DogService.dart';
 import '../Widgets/DogCardWidget.dart';
 
@@ -27,16 +26,15 @@ class _MainPageState extends State<MainPage> {
         future: DogService().getDogs(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data!.length);
             return GridView.custom(
-              padding: CustomPaddings().horizontalPadding(16),
+              padding: CustomPaddings.horizontalPadding(16),
               gridDelegate: SliverWovenGridDelegate.count(
                 crossAxisCount: 2,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 pattern: [
                   const WovenGridTile(1),
-                  const WovenGridTile(1),
+                  const WovenGridTile(0.9),
                 ],
               ),
               childrenDelegate: SliverChildBuilderDelegate(
