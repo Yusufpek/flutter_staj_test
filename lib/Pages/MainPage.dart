@@ -24,29 +24,27 @@ class _MainPageState extends State<MainPage> {
       ),
       body: FutureBuilder(
         future: DogService().getDogs(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.custom(
-              padding: CustomPaddings.horizontalPadding(16),
-              gridDelegate: SliverWovenGridDelegate.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                pattern: [
-                  const WovenGridTile(1),
-                  const WovenGridTile(0.9),
-                ],
-              ),
-              childrenDelegate: SliverChildBuilderDelegate(
-                childCount: snapshot.data!.length,
-                (context, index) => DogCardWidget(dog: snapshot.data![index]),
-              ),
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+        builder: (context, snapshot) => snapshot.hasData
+            ? gridViewWidget(snapshot.data!)
+            : const Center(child: CircularProgressIndicator()),
       ),
     );
   }
+
+  Widget gridViewWidget(data) => GridView.custom(
+        padding: CustomPaddings.mediumPadding,
+        gridDelegate: SliverWovenGridDelegate.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          pattern: [
+            const WovenGridTile(1),
+            const WovenGridTile(0.9),
+          ],
+        ),
+        childrenDelegate: SliverChildBuilderDelegate(
+          childCount: data.length,
+          (context, index) => DogCardWidget(dog: data![index]),
+        ),
+      );
 }
